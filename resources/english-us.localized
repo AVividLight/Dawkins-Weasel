@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Localization>
+	<Strings>
+		<string index="0">Hello, world!</string>
+		<string index="1">Please enter a target string: </string>
+		<string index="2">Error in AskForInput!</string>
+		<string index="3">Input: </string>
+		<string index="4">String length: </string>
+		<string index="5">Primal string: </string>
+		<string index="6">At generation </string>
+		<string index="7">, most fit string '</string>
+		<string index="8">' has fitness: </string>
+		<string index="9">Evolved to '</string>
+		<string index="10">' in </string>
+		<string index="11"> generations, with a </string>
+		<string index="12">/100 mutation chance.</string>
+	</Strings>
+</Localization>
