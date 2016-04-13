@@ -3,14 +3,28 @@
 
 const int POPULATION_SIZE = 100;
 const int MUTATION_CHANCE = 5;
+const bool RESIZE = false;
 
 void EvolutionManager::EvolveToString (const std::string targetString, LocalizationManager &localization)
 {
 	
-	const int PERFECT_FITNESS_SCORE = targetString.length ();
-	
 	InputOutput io;
-	std::string primalString = targetString;
+	std::string primalString;
+	
+	
+	int PERFECT_FITNESS_SCORE = -1;
+	
+	if (RESIZE == true)
+	{
+		
+		primalString = "a";
+		PERFECT_FITNESS_SCORE = targetString.length () + targetString.length ();
+	} else {
+		
+		primalString = targetString;
+		PERFECT_FITNESS_SCORE = targetString.length ();
+	}
+	
 	CreateInitialString (primalString);
 
 	io.SendOutput (localization.GetLocalizedString (5, "Primal string: "), false);
@@ -105,21 +119,39 @@ std::string EvolutionManager::Reproduce (const std::string &parentString)
 {
 	
 	std::string newString = parentString;
+	int randomInt = RandomInt (0, 12);
 	
-	for (int i = 0; i < newString.length (); i += 1)
+	if (randomInt > randomInt / 2)
 	{
 		
-		newString[i] = Mutate(newString[i], MUTATION_CHANCE);
+		for (int i = 0; i < newString.length (); i += 1)
+		{
+		
+			newString[i] = Mutate(newString[i], MUTATION_CHANCE);
+		}
+		
+		if (RESIZE == true && RandomInt (0, 100) < MUTATION_CHANCE)
+		{
+			
+			if (randomInt % 2 == 0 && newString.size () > 0)
+			{
+				
+				newString.resize (newString.size () - 1);
+			} else {
+				
+				newString.resize (newString.size () + 1, Mutate ('-', 100));
+			}
+		}
 	}
 	
 	return newString;
 }
 
 
-char EvolutionManager::Mutate (const char &currentChar, const int MUTATION_CHANCE)
+char EvolutionManager::Mutate (const char &currentChar, const int mutationChance)
 {
 	
-	if (RandomInt (0, 100) < MUTATION_CHANCE)
+	if (RandomInt (0, 100) < mutationChance)
 	{
 		
 		return (char)RandomInt (32, 126);
@@ -142,6 +174,19 @@ int EvolutionManager::DetermineFitness (const std::string &childString, const st
 			
 			fitness += 1;
 		}
+		
+		if (RESIZE)
+		{
+			
+			if (i < targetString.length ())
+			{
+				
+				fitness += 1;
+			} else {
+				
+				fitness -= 1;
+			}
+		}
 	}
 	
 	return fitness;
@@ -151,21 +196,10 @@ int EvolutionManager::DetermineFitness (const std::string &childString, const st
 int EvolutionManager::RandomInt (const int from, const int to)
 {
 	
+	//These should probably be instantiated somewhere else, I have a feeling this is impacting performance
 	std::random_device device;
 	std::mt19937 generator (device ());
 	std::uniform_int_distribution<> distrobution (from, to);
 	
 	return distrobution (generator);
 }
-
-
-/*
-Outline for Evolution Algorithm
-	Via https://en.wikipedia.org/wiki/Weasel_program
-
-	0. Start with a random string
-	1. Make 100 copies of the string (reproduce)
-	2. For each character in each of the 100 copies, with a probability of 5%, replace (mutate) the character with a new random character.
-	3. Compare each new string with the target string "METHINKS IT IS LIKE A WEASEL", and give each a score (the number of letters in the string that are correct and in the correct position).
-	4. If any of the new strings has a perfect score (28), halt. Otherwise, take the highest scoring string, and go to step 2.
-*/
