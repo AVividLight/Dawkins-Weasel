@@ -1,10 +1,9 @@
 #ifndef EVOLUTIONMANAGER_H
 #define EVOLUTIONMANAGER_H
 
-#include <random>
-
 #include <vector>
 #include <string>
+#include <random>
 
 #include "InputOutput.h"
 #include "LocalizationManager.h"

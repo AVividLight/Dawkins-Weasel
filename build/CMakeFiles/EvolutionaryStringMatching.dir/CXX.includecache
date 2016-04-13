@@ -7,11 +7,11 @@
 #IncludeRegexTransform: 
 
 ../include/EvolutionManager.h
-random
--
 vector
 -
 string
+-
+random
 -
 InputOutput.h
 ../include/InputOutput.h

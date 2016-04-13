@@ -12,20 +12,21 @@ void EvolutionManager::EvolveToString (const std::string targetString, Localizat
 	std::string primalString;
 	
 	
-	int PERFECT_FITNESS_SCORE = -1;
-	
+	int perfectFitnessScore = -1;
+
 	if (RESIZE == true)
 	{
 		
 		primalString = "a";
-		PERFECT_FITNESS_SCORE = targetString.length () + targetString.length ();
+		perfectFitnessScore = targetString.length () + targetString.length ();
 	} else {
 		
 		primalString = targetString;
-		PERFECT_FITNESS_SCORE = targetString.length ();
+		perfectFitnessScore = targetString.length ();
 	}
 	
 	CreateInitialString (primalString);
+	
 
 	io.SendOutput (localization.GetLocalizedString (5, "Primal string: "), false);
 	io.SendOutput (primalString);
@@ -42,7 +43,7 @@ void EvolutionManager::EvolveToString (const std::string targetString, Localizat
 	int bestFitness = -1;
 	std::string bestString = "";
 	
-	while (mostFitFitness != PERFECT_FITNESS_SCORE)
+	while (mostFitFitness != perfectFitnessScore)
 	{
 		
 		generation += 1;
@@ -75,7 +76,6 @@ void EvolutionManager::EvolveToString (const std::string targetString, Localizat
 		io.SendOutput (localization.GetLocalizedString (6, "At generation "), false);
 		io.SendOutput (generation, false);
 		io.SendOutput (localization.GetLocalizedString (7, ", most fit string '"), false);
-		io.SendOutput ("", false);
 		io.SendOutput (mostFitString, false);
 		io.SendOutput (localization.GetLocalizedString (8, "' has fitness: "), false);
 		io.SendOutput (mostFitFitness);
@@ -93,13 +93,13 @@ void EvolutionManager::EvolveToString (const std::string targetString, Localizat
 }
 
 
-void EvolutionManager::CreateInitialString (std::string &primalString)
+void EvolutionManager::CreateInitialString (std::string &primalString) //Combine with following function?
 {
 	
 	for (int i = 0; i < primalString.length (); i += 1)
 	{
 		
-		primalString[i] = (char)RandomInt (32, 126);
+		primalString[i] = (char)RandomInt (32, 126); //Call to RANDOMINT
 	}
 }
 
@@ -119,7 +119,7 @@ std::string EvolutionManager::Reproduce (const std::string &parentString)
 {
 	
 	std::string newString = parentString;
-	int randomInt = RandomInt (0, 12);
+	int randomInt = RandomInt (0, 12); // RANDOMINT
 	
 	if (randomInt > randomInt / 2)
 	{
@@ -130,7 +130,7 @@ std::string EvolutionManager::Reproduce (const std::string &parentString)
 			newString[i] = Mutate(newString[i], MUTATION_CHANCE);
 		}
 		
-		if (RESIZE == true && RandomInt (0, 100) < MUTATION_CHANCE)
+		if (RESIZE == true && RandomInt (0, 100) < MUTATION_CHANCE) //Call to RANDOMINT
 		{
 			
 			if (randomInt % 2 == 0 && newString.size () > 0)
@@ -151,10 +151,10 @@ std::string EvolutionManager::Reproduce (const std::string &parentString)
 char EvolutionManager::Mutate (const char &currentChar, const int mutationChance)
 {
 	
-	if (RandomInt (0, 100) < mutationChance)
+	if (RandomInt (0, 100) < mutationChance) //Call to RANDOMINT
 	{
 		
-		return (char)RandomInt (32, 126);
+		return (char)RandomInt (32, 126); //Call to RANDOMINT
 	}
 	
 	return currentChar;
@@ -175,7 +175,7 @@ int EvolutionManager::DetermineFitness (const std::string &childString, const st
 			fitness += 1;
 		}
 		
-		if (RESIZE)
+		if (RESIZE == true)
 		{
 			
 			if (i < targetString.length ())
@@ -198,8 +198,9 @@ int EvolutionManager::RandomInt (const int from, const int to)
 	
 	//These should probably be instantiated somewhere else, I have a feeling this is impacting performance
 	std::random_device device;
-	std::mt19937 generator (device ());
+	std::minstd_rand generator (device ());
 	std::uniform_int_distribution<> distrobution (from, to);
+	/* ** *** ** * ** *** ** */
 	
 	return distrobution (generator);
 }
