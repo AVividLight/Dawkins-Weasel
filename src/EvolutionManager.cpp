@@ -1,9 +1,9 @@
 ﻿#include "EvolutionManager.h"
 
 
-const int POPULATION_SIZE = 100;
-const int MUTATION_CHANCE = 5;
-const bool RESIZE = false;
+const int POPULATION_SIZE = 100; //Number of strings to be created each generation
+const int MUTATION_CHANCE = 5; //Chance that a character will randomly change
+const bool RESIZE = false; //Defines whether the string will additionally have to mutate to the length of the target string
 
 void EvolutionManager::EvolveToString (const std::string targetString, LocalizationManager &localization)
 {
@@ -200,7 +200,7 @@ int EvolutionManager::RandomInt (const int from, const int to)
 	std::random_device device;
 	std::minstd_rand generator (device ());
 	std::uniform_int_distribution<> distrobution (from, to);
-	/* ** *** ** * ** *** ** */
+	/* *** * *** */
 	
 	return distrobution (generator);
 }
