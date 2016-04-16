@@ -1,7 +1,7 @@
 # Dawkin's Weasel
 Evolutionary String Matching
 
-This is my attempt at one of 2Cat Studios' programmer challenges, an implementation of Dawkin's Weasel. The challenge was great fun, and prompted me to learn about several new topics, one of which manifested itself as the included localisation code (I got massively sidetracked). I did my best to keep my wanderings and the challenge separate, so if you're only interested in evolutionary string matching, just look at [EvolutionManager.cpp](https://github.com/AVividLight/Dawkins-Weasel/blob/master/src/EvolutionManager.cpp), and know that `io.SendOutput (char, bool)` is my wrapper for `std::cout`.
+This is my attempt at one of 2Cat Studios' programmer challenges, an implementation of Dawkin's Weasel. The challenge was great fun, and prompted me to learn about several new topics, one of which manifested itself as the included localisation code (I got massively sidetracked). I did my best to keep my wanderings and the challenge separate, so if you're only interested in evolutionary string matching, just look at [EvolutionManager.cpp](https://github.com/AVividLight/Dawkins-Weasel/blob/master/src/EvolutionManager.cpp), and know that `InputOutput::SendOutput (string, bool)` is my wrapper for `std::cout`.
 
 Overall, I'm quite proud of how this turned out, but I don't have much to compare it to. The code is probably pretty inefficient compared to some of the other evolutionary algorithms out there, although I actually haven't seen the source for any others myself. More fine-tuning could certainly be done, too. Specifically, the `const int MUTATION_CHANCE` is 0.05, which is a value I blindly picked from Wikipedia. I'm sure it could be more accurate.
 
