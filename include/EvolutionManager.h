@@ -17,6 +17,12 @@ public:
 	
 
 private:
+	std::random_device m_device;
+	std::minstd_rand m_generator;
+	std::uniform_int_distribution<> m_distrobution;
+	
+	void InitializeRandom ();
+	
 	void CreateInitialString (std::string &primalString);
 	void CreatePopulation (std::vector<std::string> &population, const std::string &parentString);
 	std::string Reproduce (const std::string &parentString);

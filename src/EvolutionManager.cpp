@@ -193,14 +193,16 @@ int EvolutionManager::DetermineFitness (const std::string &childString, const st
 }
 
 
-int EvolutionManager::RandomInt (const int from, const int to)
+void EvolutionManager::InitializeRandom ()
 {
 	
-	//These should probably be instantiated somewhere else, I have a feeling this is impacting performance
-	std::random_device device;
-	std::minstd_rand generator (device ());
-	std::uniform_int_distribution<> distrobution (from, to);
-	/* *** * *** */
-	
-	return distrobution (generator);
+	m_generator = std::minstd_rand (m_device ());
+}
+
+
+int EvolutionManager::RandomInt (const int from, const int to)
+{
+
+	m_distrobution = std::uniform_int_distribution<> (from, to);
+	return m_distrobution (m_generator);
 }
