@@ -8,3 +8,6 @@ Overall, I'm quite proud of how this turned out, but I don't have much to compar
 You're free to use this code however you like, I hereby relinquish my rights of ownership, and release the project into the public domain. Attribution or links to https://2catstudios.github.io are appreciated!
 
 ### For more info, please visit [https://2CatStudios.github.io/challenges](https://2catstudios.github.io/challenges.html#dawkins_weasel)
+
+This software is based on pugixml library (http://pugixml.org).
+pugixml is Copyright (C) 2006-2015 Arseny Kapoulkine.
